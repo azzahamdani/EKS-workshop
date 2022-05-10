@@ -4,6 +4,10 @@ source ./utils.sh
 
 infoln "Create an eksctl deployment file"
 
+export ACCOUNT_ID=$(aws sts get-caller-identity --output text --query Account)
+export AWS_REGION=$(curl -s 169.254.169.254/latest/dynamic/instance-identity/document | jq -r '.region')
+export AZS=($(aws ec2 describe-availability-zones --query 'AvailabilityZones[].ZoneName' --output text --region $AWS_REGION))
+
 cat << EOF > eksworkshop.yaml
 ---
 apiVersion: eksctl.io/v1alpha5
