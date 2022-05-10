@@ -105,8 +105,8 @@ aws sts get-caller-identity --query Arn | grep eksworkshop-admin -q && echo "IAM
 
 infoln "save the ACCOUNT_ID, AWS_REGION, AZS environment variable into the bash_profile"
 echo "export ACCOUNT_ID=${ACCOUNT_ID}" | tee -a ~/.bash_profile
-echo "export ACCOUNT_ID=${AWS_REGION}" | tee -a ~/.bash_profile
-echo "export ACCOUNT_ID=${AZS}" | tee -a ~/.bash_profile
+echo "export AWS_REGION=${AWS_REGION}" | tee -a ~/.bash_profile
+echo "export AZS=${AZS}" | tee -a ~/.bash_profile
 
 # ---------------------------------------------------------------------------------------------------------------------
 # CLONE THE SERVICE REPOS
