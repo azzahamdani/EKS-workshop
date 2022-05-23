@@ -99,6 +99,14 @@ infoln "check the desired resgion"
 
 test -n "$AWS_REGION" && echo AWS_REGION is "$AWS_REGION" || echo AWS_REGION is not set
 
+infoln "save to the bash_profile"
+echo "export ACCOUNT_ID=${ACCOUNT_ID}" | tee -a ~/.bash_profile
+echo "export AWS_REGION=${AWS_REGION}" | tee -a ~/.bash_profile
+echo "export AZS=(${AZS[@]})" | tee -a ~/.bash_profile
+aws configure set default.region ${AWS_REGION}
+aws configure get default.region
+source ~/.bash_profile
+
 infoln "validate IAM role"
 
 aws sts get-caller-identity --query Arn | grep eksworkshop-admin -q && echo "IAM role valid" || echo "IAM role NOT valid"
@@ -131,3 +139,4 @@ export MASTER_ARN=$(aws kms describe-key --key-id alias/eksworkshop --query KeyM
 infoln "save the MASTER_ARN environment variable into the bash_profile"
 
 echo "export MASTER_ARN=${MASTER_ARN}" | tee -a ~/.bash_profile
+source ~/.bash_profile
